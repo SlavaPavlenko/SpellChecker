@@ -1,0 +1,7 @@
+C:\Users\SunRay\Desktop\SpellChecker\SpellChecker\SpellChecker\bin\Debug\SpellChecker.exe.config
+C:\Users\SunRay\Desktop\SpellChecker\SpellChecker\SpellChecker\bin\Debug\SpellChecker.exe
+C:\Users\SunRay\Desktop\SpellChecker\SpellChecker\SpellChecker\bin\Debug\SpellChecker.pdb
+C:\Users\SunRay\Desktop\SpellChecker\SpellChecker\SpellChecker\obj\Debug\SpellChecker.csprojAssemblyReference.cache
+C:\Users\SunRay\Desktop\SpellChecker\SpellChecker\SpellChecker\obj\Debug\SpellChecker.csproj.CoreCompileInputs.cache
+C:\Users\SunRay\Desktop\SpellChecker\SpellChecker\SpellChecker\obj\Debug\SpellChecker.exe
+C:\Users\SunRay\Desktop\SpellChecker\SpellChecker\SpellChecker\obj\Debug\SpellChecker.pdb
