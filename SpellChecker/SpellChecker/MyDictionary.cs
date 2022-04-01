@@ -25,7 +25,8 @@ namespace SpellChecker
                 int j = 0;  //счетчик текущей буквы в word (wordSpelling)
                 List<char> _wordSpelling = word.ToList();
                 List<char> wordSpelling = _word.ToList();
-                //if (word == "fall" && _word == "fells") {
+                //if (word == "his" && _word == "hints")
+                //{
                 //    int dasd = 2;
                 //}
 
@@ -37,77 +38,42 @@ namespace SpellChecker
                 }
 
                 //посимвольное сравнение слов
+                int prevStepCorrection = 0; //для отлова двух одинаковых действий подряд
+                bool prevStepInsert = false; //флаг алгоритма вставки
                 while (mistakeCounter <= _editsAmount && i < _wordSpelling.Count && j < wordSpelling.Count)
                 {
+                    //ограничение на две корректировки подряд
+                    if (Math.Abs(prevStepCorrection) == 2)
+                        mistakeCounter = _editsAmount + 1;
                     if (_wordSpelling[i] != wordSpelling[j])
                     {
                         if (_wordSpelling.Count >= wordSpelling.Count)
                         {
                             _wordSpelling.RemoveAt(i);
+                            prevStepCorrection--;
                             mistakeCounter++;
                         }
                         else if (_wordSpelling.Count < wordSpelling.Count)
                         {
                             _wordSpelling.Insert(i, wordSpelling[j]);
+                            prevStepCorrection++;
+                            if (prevStepInsert)
+                                prevStepCorrection = 2;
+                            else
+                                prevStepInsert = true;
                             mistakeCounter++;
                         }
                     }
                     else
                     {
+                        if (!prevStepInsert)
+                            prevStepCorrection = 0;
                         i++;
                         j++;
                     }
                 }
                 mistakeCounter += Math.Abs(_wordSpelling.Count - wordSpelling.Count);
                 DefineList(word, mistakeCounter, oneMistakeWords, twoMistakeWords);
-                
-
-                //...слова одинаковой длины. "Заменяем" букву
-                //ОШИБКА! Некорректно работает условие при равных длинах слов
-                //сделать удиный алгоритм
-                /*
-                if (_word.Length == word.Length)
-                {
-                    while (mistakeCounter <= 2 && i < wordSpelling.Length)
-                    {
-                        if (_wordSpelling[i] != wordSpelling[j])
-                            mistakeCounter += 2;
-                        i++;
-                        j++;
-                    }
-
-                    //запись в соответствующий лист
-                    DefineList(word, mistakeCounter, oneMistakeWords, twoMistakeWords);
-                }
-                //...сравниваемое слово длиннее. "Удаляем" букву из _word
-                else if (_word.Length > word.Length) {
-                    while (mistakeCounter <= 2 && i < _wordSpelling.Length)
-                    {
-                        if (j < wordSpelling.Length && _wordSpelling[i] != wordSpelling[j])
-                        {
-                            mistakeCounter += 1;
-                        }
-                        else
-                            j++;
-                        i++;
-                    }
-                    DefineList(word, mistakeCounter, oneMistakeWords, twoMistakeWords);
-                }
-                //...сравниваемое слово короче. "Вставляем" букву в _word
-                else if (_word.Length < word.Length)
-                {
-                    while (mistakeCounter <= 2 && i < _wordSpelling.Length)
-                    {
-                        if (j >= wordSpelling.Length || _wordSpelling[i] != wordSpelling[j])
-                        {
-                            mistakeCounter += 1;
-                        } else
-                            i++;
-                        j++;
-                    }
-                    DefineList(word, mistakeCounter, oneMistakeWords, twoMistakeWords);
-                }
-                */
             }
 
             if (oneMistakeWords.Count > 0)
