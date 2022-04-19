@@ -19,6 +19,13 @@ namespace SpellChecker
             List<string> oneMistakeWords = new List<string>();
             List<string> twoMistakeWords = new List<string>();
 
+            if (wordList.Contains(_word))
+            {
+                List<string> res = new List<string>();
+                res.Add(_word);
+                return res;
+            }
+
             foreach (string word in wordList) {
                 int mistakeCounter = 0;
                 int i = 0;  //счетчик текущей буквы в _word (_wordSpelling)
@@ -29,13 +36,6 @@ namespace SpellChecker
                 //{
                 //    int dasd = 2;
                 //}
-
-                if (wordList.Contains(_word)) {
-                    DefineList(_word, mistakeCounter, oneMistakeWords, twoMistakeWords);
-                    List<string> res = new List<string>();
-                    res.Add(_word);
-                    return res;
-                }
 
                 //посимвольное сравнение слов
                 int prevStepCorrection = 0; //для отлова двух одинаковых действий подряд
@@ -53,7 +53,7 @@ namespace SpellChecker
                             prevStepCorrection--;
                             mistakeCounter++;
                         }
-                        else if (_wordSpelling.Count < wordSpelling.Count)
+                        else
                         {
                             _wordSpelling.Insert(i, wordSpelling[j]);
                             prevStepCorrection++;
